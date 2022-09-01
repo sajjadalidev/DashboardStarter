@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { navbarCloseMobile } from 'app/store/fuse/navbarSlice';
-import NavbarStyle1Content from './NavbarStyle1Content';
+import NavbarStyle1Content from './NavbarContent';
 
 const navbarWidth = 280;
 

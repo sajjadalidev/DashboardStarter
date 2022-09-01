@@ -5,17 +5,14 @@ import AppBar from '@mui/material/AppBar';
 import Hidden from '@mui/material/Hidden';
 import Toolbar from '@mui/material/Toolbar';
 import NavbarToggleButton from 'app/fuse-layouts/shared-components/NavbarToggleButton';
-import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
-import AdjustFontSize from '../../shared-components/AdjustFontSize';
 import FullScreenToggle from '../../shared-components/FullScreenToggle';
-import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
 
-function ToolbarLayout1(props) {
+function ToolbarLayout(props) {
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
   const navbar = useSelector(({ fuse }) => fuse.navbar);
   const toolbarTheme = useSelector(selectToolbarTheme);
@@ -56,16 +53,8 @@ function ToolbarLayout1(props) {
           </div>
 
           <div className="flex items-center px-8 h-full overflow-x-auto">
-            <LanguageSwitcher />
-
-            <AdjustFontSize />
-
             <FullScreenToggle />
-
             <FuseSearch />
-
-            <QuickPanelToggleButton />
-
             <UserMenu />
           </div>
 
@@ -86,4 +75,4 @@ function ToolbarLayout1(props) {
   );
 }
 
-export default memo(ToolbarLayout1);
+export default memo(ToolbarLayout);

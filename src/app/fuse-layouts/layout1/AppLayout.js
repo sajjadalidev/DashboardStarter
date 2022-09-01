@@ -1,17 +1,15 @@
-import FuseDialog from '@fuse/core/FuseDialog';
 import { styled } from '@mui/material/styles';
 import FuseMessage from '@fuse/core/FuseMessage';
 import FuseSuspense from '@fuse/core/FuseSuspense';
 import AppContext from 'app/AppContext';
-import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 import { memo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import FooterLayout1 from './components/FooterLayout1';
-import LeftSideLayout1 from './components/LeftSideLayout1';
-import NavbarWrapperLayout1 from './components/NavbarWrapperLayout1';
-import RightSideLayout1 from './components/RightSideLayout1';
-import ToolbarLayout1 from './components/ToolbarLayout1';
+import FooterLayout from './components/FooterLayout';
+import LeftSideLayout from './components/LeftSideLayout';
+import NavbarWrapperLayout from './components/NavbarWrapperLayout';
+import RightSideLayout from './components/RightSideLayout';
+import ToolbarLayout from './components/ToolbarLayout';
 
 const Root = styled('div')(({ theme, config }) => ({
   ...(config.mode === 'boxed' && {
@@ -29,47 +27,41 @@ const Root = styled('div')(({ theme, config }) => ({
   }),
 }));
 
-function Layout1(props) {
+function AppLayout(props) {
   const config = useSelector(({ fuse }) => fuse.settings.current.layout.config);
   const appContext = useContext(AppContext);
   const { routes } = appContext;
 
   return (
     <Root id="fuse-layout" config={config} className="w-full flex">
-      {config.leftSidePanel.display && <LeftSideLayout1 />}
+      {config.leftSidePanel.display && <LeftSideLayout />}
 
       <div className="flex flex-auto min-w-0">
-        {config.navbar.display && config.navbar.position === 'left' && <NavbarWrapperLayout1 />}
+        {config.navbar.display && config.navbar.position === 'left' && <NavbarWrapperLayout />}
 
         <main id="fuse-main" className="flex flex-col flex-auto min-h-screen min-w-0 relative z-10">
           {config.toolbar.display && (
-            <ToolbarLayout1 className={config.toolbar.style === 'fixed' && 'sticky top-0'} />
+            <ToolbarLayout className={config.toolbar.style === 'fixed' && 'sticky top-0'} />
           )}
 
-          <div className="sticky top-0 z-99">
-            <SettingsPanel />
-          </div>
-
           <div className="flex flex-col flex-auto min-h-0 relative z-10">
-            <FuseDialog />
-
             <FuseSuspense>{renderRoutes(routes)}</FuseSuspense>
 
             {props.children}
           </div>
 
-          {config.footer.display && (
-            <FooterLayout1 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
+          {/* {config.footer.display && (
+            <FooterLayout className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
+          )} */}
         </main>
 
-        {config.navbar.display && config.navbar.position === 'right' && <NavbarWrapperLayout1 />}
+        {config.navbar.display && config.navbar.position === 'right' && <NavbarWrapperLayout />}
       </div>
 
-      {config.rightSidePanel.display && <RightSideLayout1 />}
+      {config.rightSidePanel.display && <RightSideLayout />}
       <FuseMessage />
     </Root>
   );
 }
 
-export default memo(Layout1);
+export default memo(AppLayout);
